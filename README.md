@@ -54,16 +54,22 @@ optional arguments:
 
 ## Example
 
-client
+### server
+
+Start tcp/ip socket listening on port 8080 and wait for message
+
+```
+w4m wait --port-number 8080 --message 'ready to proceed'
+```
+
+### client
+
+Connect tcip/ip socket to ip:port and send several messages
+
 ```
 w4m send --ip-address 192.168.1.199 --port-number 8080 --message 'a message'
 w4m send --ip-address 192.168.1.199 --port-number 8080 --message 'another message'
 w4m send --ip-address 192.168.1.199 --port-number 8080 --message 'ready to proceed'
-```
-
-server
-```
-w4m wait --port-number 8080 --message 'ready to proceed'
 ```
 
 ![example1](https://raw.githubusercontent.com/soda480/wait-for-message/main/docs/images/execution.gif)
