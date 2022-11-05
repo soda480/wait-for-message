@@ -7,6 +7,11 @@
 
 A simple client server utility that blocks until a message is received on a TCP/IP socket connection; useful for synchronizing interdependent networked jobs.
 
+## Installation
+```bash
+pip install wait-for-message
+```
+
 ## `w4m` Usage
 ```bash
 usage: w4m [-h] {send,wait} ...
@@ -56,7 +61,7 @@ optional arguments:
 
 ### server
 
-Start tcp/ip socket listening on port 8080 and wait for message
+On a Linux machine, start tcp/ip socket listening on port 8080 and wait for message. Note the script blocks until the expected message is received.
 
 ```
 w4m wait --port-number 8080 --message 'ready to proceed'
@@ -64,12 +69,12 @@ w4m wait --port-number 8080 --message 'ready to proceed'
 
 ### client
 
-Connect tcip/ip socket to ip:port and send several messages
+On an other machine (this example we used a Windows machine), connect tcip/ip socket to the ip:port for the server and send several messages. 
 
 ```
-w4m send --ip-address 192.168.1.199 --port-number 8080 --message 'a message'
-w4m send --ip-address 192.168.1.199 --port-number 8080 --message 'another message'
-w4m send --ip-address 192.168.1.199 --port-number 8080 --message 'ready to proceed'
+w4m send --ip-address 192.168.1.199 --port-number 8080 --message "a message"
+w4m send --ip-address 192.168.1.199 --port-number 8080 --message "another message"
+w4m send --ip-address 192.168.1.199 --port-number 8080 --message "ready to proceed"
 ```
 
 ![example1](https://raw.githubusercontent.com/soda480/wait-for-message/main/docs/images/execution.gif)
