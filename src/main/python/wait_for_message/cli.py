@@ -20,9 +20,7 @@ def get_parser():
         description='A simple client server utility that blocks until a message is received on a TCP/IP socket connection')
     subparser = parser.add_subparsers(dest='command')
 
-    send_parser = subparser.add_parser(
-        'send',
-        help='send message to server')
+    send_parser = subparser.add_parser('send', help='send message to server')
     send_parser.set_defaults(subcmd=send)
     send_parser.add_argument(
         '--ip-address',
@@ -55,9 +53,7 @@ def get_parser():
         default=6,
         help='maximum retry attempts; default 6')
 
-    wait_parser = subparser.add_parser(
-        'wait',
-        help="wait for message from client")
+    wait_parser = subparser.add_parser('wait', help="wait for message from client")
     wait_parser.set_defaults(subcmd=wait)
     wait_parser.add_argument(
         '--port-number',
@@ -105,7 +101,8 @@ def send(ip_address, port_number, message_to_send, delay, max_attempts):
             # if no acknowledgement then connect and resend
             acknowledgement = s.recv(10000).decode()
             logger.debug(f"received acknowledgement: '{acknowledgement}'")
-            break
+            if acknowledgement:
+                break
 
         except socket.error as error:
             logger.debug(f'socket.error: {error}')
@@ -135,7 +132,7 @@ def wait(port_number, message_to_wait_for, timeout):
 
     while True:
         logger.debug('waiting for message')
-        connection, client_address = s.accept()
+        connection, _ = s.accept()
         logger.debug(f'accepted connection from {connection.getpeername()}')
 
         data = connection.recv(10000).decode()

@@ -1,4 +1,7 @@
+[![build](https://github.com/soda480/wait-for-message/actions/workflows/main.yml/badge.svg)](https://github.com/soda480/wait-for-message/actions/workflows/main.yml)
+[![Code Grade](https://api.codiga.io/project/34932/status/svg)](https://app.codiga.io/hub/project/34932/wait-for-message)
 [![vulnerabilities](https://img.shields.io/badge/vulnerabilities-None-brightgreen)](https://pypi.org/project/bandit/)
+[![PyPI version](https://badge.fury.io/py/wait-for-message.svg)](https://badge.fury.io/py/wait-for-message)
 [![python](https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9%20%7C%203.10-teal)](https://www.python.org/downloads/)
 # wait-for-message
 
@@ -49,57 +52,21 @@ optional arguments:
   --timeout TIMEOUT     number of seconds to wait for message; default 900 (i.e. 15 minutes)
 ```
 
-## Execution
+## Example
 
 client
 ```
+w4m send --ip-address 192.168.1.199 --port-number 8080 --message 'a message'
+w4m send --ip-address 192.168.1.199 --port-number 8080 --message 'another message'
 w4m send --ip-address 192.168.1.199 --port-number 8080 --message 'ready to proceed'
-
-2022-11-05 16:56:42,724: creating tcp/ip socket
-2022-11-05 16:56:42,724: connecting to server 192.168.1.199:8080
-2022-11-05 16:56:42,725: sending message 'ready'
-2022-11-05 16:56:42,725: received acknowledgement: 'acknowledged - waiting'
-2022-11-05 16:56:42,725: closing tcp/ip socket
-
-w4m send --ip-address 192.168.1.199 --port-number 8080 --message 'ready2'
-2022-11-05 16:56:54,014: creating tcp/ip socket
-2022-11-05 16:56:54,014: connecting to server 192.168.1.199:8080
-2022-11-05 16:56:54,014: sending message 'ready2'
-2022-11-05 16:56:54,015: received acknowledgement: 'acknowledged - waiting'
-2022-11-05 16:56:54,015: closing tcp/ip socket
-
-w4m send --ip-address 192.168.1.199 --port-number 8080 --message 'ready to proceed'
-2022-11-05 16:56:58,520: creating tcp/ip socket
-2022-11-05 16:56:58,520: connecting to server 192.168.1.199:8080
-2022-11-05 16:56:58,520: sending message 'ready to proceed'
-2022-11-05 16:56:58,521: received acknowledgement: 'acknowledged - quitting'
-2022-11-05 16:56:58,521: closing tcp/ip socket
 ```
 
 server
 ```
 w4m wait --port-number 8080 --message 'ready to proceed'
-
-2022-11-05 16:56:33,717: creating tcp/ip socket
-2022-11-05 16:56:33,717: binding and starting up on 652b723eb830:8080
-2022-11-05 16:56:33,717: waiting for message
-2022-11-05 16:56:42,725: accepted connection from ('172.17.0.1', 42148)
-2022-11-05 16:56:42,725: message received: 'ready'
-2022-11-05 16:56:42,725: sending acknowledgement message: 'acknowledged - waiting'
-2022-11-05 16:56:42,725: shutting down and closing connection
-2022-11-05 16:56:42,725: waiting for message
-2022-11-05 16:56:54,015: accepted connection from ('172.17.0.1', 42152)
-2022-11-05 16:56:54,015: message received: 'ready2'
-2022-11-05 16:56:54,015: sending acknowledgement message: 'acknowledged - waiting'
-2022-11-05 16:56:54,015: shutting down and closing connection
-2022-11-05 16:56:54,015: waiting for message
-2022-11-05 16:56:58,520: accepted connection from ('172.17.0.1', 42156)
-2022-11-05 16:56:58,520: message received: 'ready to proceed'
-2022-11-05 16:56:58,520: the message being waited for was received
-2022-11-05 16:56:58,520: sending acknowledgement message: 'acknowledged - quitting'
-2022-11-05 16:56:58,520: shutting down and closing connection
-2022-11-05 16:56:58,520: closing tcp/ip socket
 ```
+
+![example1](https://raw.githubusercontent.com/soda480/wait-for-message/main/docs/images/execution.gif)
 
 ## Development
 
