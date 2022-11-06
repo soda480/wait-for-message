@@ -20,14 +20,17 @@ A simple client server utility that blocks until a message is received on a TCP/
 
 positional arguments:
   {send,wait}
-    send       send message to server
-    wait       wait for message from client
+    send       send message to tcp/ip connection until acknowledged or maximum attempts
+    wait       wait for message on tcp/ip connection until received or timeout
 
 optional arguments:
   -h, --help   show this help message and exit
 ```
 
 ### `w4m send`
+
+send message to tcp/ip connection until acknowledged or maximum attempts
+
 ```bash
 usage: w4m send [-h] --ip-address IP_ADDRESS --port-number PORT_NUMBER --message MESSAGE_TO_SEND [--delay DELAY] [--attempts MAX_ATTEMPTS]
 
@@ -45,6 +48,9 @@ optional arguments:
 ```
 
 ### `w4m wait`
+
+wait for message on tcp/ip connection until received or timeout
+
 ```bash
 usage: w4m wait [-h] --port-number PORT_NUMBER --message MESSAGE_TO_WAIT_FOR [--timeout TIMEOUT]
 
@@ -59,17 +65,17 @@ optional arguments:
 
 ## Example
 
-### server
+### wait
 
-On a Linux machine, start tcp/ip socket listening on port 8080 and wait for message. Note the script blocks until the expected message is received.
+On a Linux machine, start tcp/ip socket listening on port 8080 and wait for message. Note the script blocks until the expected message is received. If the message is not received a timeout error will be thrown.
 
 ```
 w4m wait --port-number 8080 --message 'ready to proceed'
 ```
 
-### client
+### send
 
-On an other machine (this example we used a Windows machine), connect tcip/ip socket to the ip:port for the server and send several messages. 
+On an other machine (this example we used a Windows machine), connect tcip/ip socket to the ip:port for the server and send several messages. Send will resend message until an acknowledgement is received. If no acknowledgement is received after max attempts a MaxAttemptsError is thrown.
 
 ```
 w4m send --ip-address 192.168.1.199 --port-number 8080 --message "a message"
