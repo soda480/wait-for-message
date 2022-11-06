@@ -16,7 +16,7 @@ name = 'wait-for-message'
 authors = [Author('Emilio Reyes', 'soda480@gmail.com')]
 summary = 'A simple client server utility that blocks until a message is received on a TCP/IP socket connection'
 url = 'https://github.com/soda480/wait-for-message'
-version = '0.1.1'
+version = '0.1.2'
 default_task = [
     'clean',
     'analyze',

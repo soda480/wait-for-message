@@ -20,7 +20,7 @@ def get_parser():
         description='A simple client server utility that blocks until a message is received on a TCP/IP socket connection')
     subparser = parser.add_subparsers(dest='command')
 
-    send_parser = subparser.add_parser('send', help='send message to server')
+    send_parser = subparser.add_parser('send', help='send message to tcp/ip connection until acknowledged or maximum attempts')
     send_parser.set_defaults(subcmd=send)
     send_parser.add_argument(
         '--ip-address',
@@ -53,7 +53,7 @@ def get_parser():
         default=6,
         help='maximum retry attempts; default 6')
 
-    wait_parser = subparser.add_parser('wait', help="wait for message from client")
+    wait_parser = subparser.add_parser('wait', help="wait for message on tcp/ip connection until received or timeout")
     wait_parser.set_defaults(subcmd=wait)
     wait_parser.add_argument(
         '--port-number',
@@ -80,6 +80,7 @@ def get_parser():
 def send(ip_address, port_number, message_to_send, delay, max_attempts):
     """ send message to server at ip_address:port_number
     """
+    ip_address = ip_address.strip()
     logger.debug('creating tcp/ip socket')
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.settimeout(5)
@@ -124,6 +125,8 @@ def wait(port_number, message_to_wait_for, timeout):
     s.settimeout(timeout)
 
     server_name = socket.gethostname().lower()
+    ip_address = socket.gethostbyname(server_name)
+    logger.debug(f'ip address for {server_name} is {ip_address}')
     logger.debug(f'binding and starting up on {server_name}:{port_number}')
     server_address = (server_name, port_number)
     s.bind(server_address)
