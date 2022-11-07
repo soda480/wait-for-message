@@ -56,11 +56,18 @@ def get_parser():
     wait_parser = subparser.add_parser('wait', help="wait for message on tcp/ip connection until received or timeout")
     wait_parser.set_defaults(subcmd=wait)
     wait_parser.add_argument(
+        '--ip-address',
+        dest='ip_address',
+        type=str,
+        required=False,
+        default='0.0.0.0',
+        help='the ip address to bind to; default 0.0.0.0')
+    wait_parser.add_argument(
         '--port-number',
         dest='port_number',
         type=int,
         required=True,
-        help='the port number the server is listening on')
+        help='the port number to listen on')
     wait_parser.add_argument(
         '--message',
         dest='message_to_wait_for',
@@ -115,7 +122,7 @@ def send(ip_address, port_number, message_to_send, delay, max_attempts):
     s.close()
 
 
-def wait(port_number, message_to_wait_for, timeout):
+def wait(ip_address, port_number, message_to_wait_for, timeout):
     """ setup socket on port_number and wait for message
     """
     logger.debug('creating tcp/ip socket')
@@ -124,11 +131,13 @@ def wait(port_number, message_to_wait_for, timeout):
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.settimeout(timeout)
 
-    server_name = socket.gethostname().lower()
-    ip_address = socket.gethostbyname(server_name)
-    logger.debug(f'ip address for {server_name} is {ip_address}')
-    logger.debug(f'binding and starting up on {server_name}:{port_number}')
-    server_address = (server_name, port_number)
+    if ip_address == 'discover':
+        server_name = socket.gethostname().lower()
+        ip_address = socket.gethostbyname(server_name)
+        logger.debug(f'ip address discovered for {server_name} is {ip_address}')
+
+    logger.debug(f'binding and starting up on {ip_address}:{port_number}')
+    server_address = (ip_address, port_number)
     s.bind(server_address)
 
     s.listen(5)

@@ -52,12 +52,14 @@ optional arguments:
 wait for message on tcp/ip connection until received or timeout
 
 ```bash
-usage: w4m wait [-h] --port-number PORT_NUMBER --message MESSAGE_TO_WAIT_FOR [--timeout TIMEOUT]
+usage: w4m wait [-h] [--ip-address IP_ADDRESS] --port-number PORT_NUMBER --message MESSAGE_TO_WAIT_FOR [--timeout TIMEOUT]
 
 optional arguments:
   -h, --help            show this help message and exit
+  --ip-address IP_ADDRESS
+                        the ip address to bind to; default 0.0.0.0
   --port-number PORT_NUMBER
-                        the port number the server is listening on
+                        the port number to listen on
   --message MESSAGE_TO_WAIT_FOR
                         the message to wait for
   --timeout TIMEOUT     number of seconds to wait for message; default 900 (i.e. 15 minutes)
