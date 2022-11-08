@@ -142,6 +142,7 @@ def wait(ip_address, port_number, message_to_wait_for, timeout):
 
     s.listen(5)
 
+    data = None
     while True:
         logger.debug('waiting for message')
         connection, _ = s.accept()
@@ -151,7 +152,8 @@ def wait(ip_address, port_number, message_to_wait_for, timeout):
         logger.debug(f"message received: '{data}'")
 
         message_received = False
-        if data == message_to_wait_for:
+        message_to_check = data.split(':')[0]
+        if message_to_check == message_to_wait_for:
             logger.debug('the message being waited for was received')
             message_received = True
 
@@ -170,13 +172,15 @@ def wait(ip_address, port_number, message_to_wait_for, timeout):
     logger.debug('closing tcp/ip socket')
     s.close()
 
+    return data
+
 
 def run(options):
     """ run subcmd
     """
     options.pop('command', None)
     subcmd = options.pop('subcmd', None)
-    subcmd(**options)
+    return subcmd(**options)
 
 
 def configure_logging():
@@ -185,7 +189,7 @@ def configure_logging():
     root = logging.getLogger()
     root.setLevel(logging.DEBUG)
 
-    handler = logging.StreamHandler(sys.stdout)
+    handler = logging.StreamHandler(sys.stderr)
     handler.setLevel(logging.DEBUG)
     # formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     formatter = logging.Formatter('%(asctime)s: %(message)s')
@@ -196,10 +200,11 @@ def configure_logging():
 def main():
     """ main program
     """
-    # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
     configure_logging()
     args = get_parser().parse_args()
-    run(vars(args))
+    result = run(vars(args))
+    if result:
+        print(result)
 
 
 if __name__ == '__main__':  # pragma: no cover
