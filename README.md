@@ -49,7 +49,7 @@ optional arguments:
 
 ### `w4m wait`
 
-wait for message on tcp/ip connection until received or timeout
+wait for message on tcp/ip connection until received or timeout - if received print message including additonal metadata to stdout
 
 ```bash
 usage: w4m wait [-h] [--ip-address IP_ADDRESS] --port-number PORT_NUMBER --message MESSAGE_TO_WAIT_FOR [--timeout TIMEOUT]
@@ -69,7 +69,7 @@ optional arguments:
 
 ### wait
 
-On a Linux machine, start tcp/ip socket listening on port 8080 and wait for message. Note the script blocks until the expected message is received. If the message is not received a timeout error will be thrown.
+On a Linux machine, start tcp/ip socket listening on port 8080 and wait for message. Note the script blocks until the expected message is received. If the message is not received a timeout error will be thrown. The message received is printed to stdout.
 
 ```
 w4m wait --port-number 8080 --message 'ready to proceed'
@@ -82,7 +82,7 @@ On an other machine (this example we used a Windows machine), connect tcip/ip so
 ```
 w4m send --ip-address 192.168.1.199 --port-number 8080 --message "a message"
 w4m send --ip-address 192.168.1.199 --port-number 8080 --message "another message"
-w4m send --ip-address 192.168.1.199 --port-number 8080 --message "ready to proceed"
+w4m send --ip-address 192.168.1.199 --port-number 8080 --message "ready to proceed:metadata"
 ```
 
 ![example1](https://raw.githubusercontent.com/soda480/wait-for-message/main/docs/images/execution.gif)
