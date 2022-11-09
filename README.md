@@ -69,7 +69,7 @@ optional arguments:
 
 ### wait
 
-On a Linux machine, start tcp/ip socket listening on port 8080 and wait for message. Note the script blocks until the expected message is received. If the message is not received a timeout error will be thrown. The message received contains a body it is printed to stdout.
+On a Linux machine, start tcp/ip socket listening on port 8080 and wait for message. Note the script blocks until the expected message is received. If the message is not received a timeout error will be thrown. If the message received contains a body it is printed to stdout.
 
 ```
 w4m wait --port-number 8080 --message "ready to proceed"
