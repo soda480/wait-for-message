@@ -152,7 +152,11 @@ def wait(ip_address, port_number, message_to_wait_for, timeout):
         logger.debug(f"message received: '{data}'")
 
         message_received = False
-        message_to_check = data.split(':')[0]
+        data_split = data.split(':')
+        message_to_check = data_split[0]
+        message_body = None
+        if len(data_split) > 1:
+            message_body = data_split[1]
         if message_to_check == message_to_wait_for:
             logger.debug('the message being waited for was received')
             message_received = True
@@ -172,7 +176,7 @@ def wait(ip_address, port_number, message_to_wait_for, timeout):
     logger.debug('closing tcp/ip socket')
     s.close()
 
-    return data
+    return message_body
 
 
 def run(options):
