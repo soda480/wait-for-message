@@ -119,6 +119,7 @@ def send(ip_address, port_number, message_to_send, delay, max_attempts):
             attempts += 1
 
     logger.debug('closing tcp/ip socket')
+    s.shutdown(socket.SHUT_RDWR)
     s.close()
 
 
@@ -174,6 +175,7 @@ def wait(ip_address, port_number, message_to_wait_for, timeout):
             break
 
     logger.debug('closing tcp/ip socket')
+    s.shutdown(socket.SHUT_RDWR)
     s.close()
 
     return message_body
