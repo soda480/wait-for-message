@@ -1,7 +1,7 @@
 name: build+test
 on:
   schedule:
-  - cron: "0 8 * * *"
+  - cron: "0 8 * * 2,4,6"
   push:
     branches:
       - '**'
@@ -27,7 +27,7 @@ jobs:
           docker save --output images/w4m-${{ matrix.version }}.tar w4m:${{ matrix.version }}
       - name: upload w4m ${{ matrix.version }} image artifact
         if: ${{ matrix.version == '3.9' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: image
           path: images/w4m-${{ matrix.version }}.tar
