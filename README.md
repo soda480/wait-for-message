@@ -1,4 +1,4 @@
-[![build](https://github.com/soda480/wait-for-message/actions/workflows/main.yml/badge.svg)](https://github.com/soda480/wait-for-message/actions/workflows/main.yml)
+[![build+test](https://github.com/soda480/wait-for-message/actions/workflows/main.yml/badge.svg)](https://github.com/soda480/wait-for-message/actions/workflows/main.yml)
 [![Code Grade](https://api.codiga.io/project/34932/status/svg)](https://app.codiga.io/hub/project/34932/wait-for-message)
 [![vulnerabilities](https://img.shields.io/badge/vulnerabilities-None-brightgreen)](https://pypi.org/project/bandit/)
 [![PyPI version](https://badge.fury.io/py/wait-for-message.svg)](https://badge.fury.io/py/wait-for-message)
@@ -71,7 +71,7 @@ optional arguments:
 
 On a Linux machine, start tcp/ip socket listening on port 8080 and wait for message. Note the script blocks until the expected message is received. If the message is not received a timeout error will be thrown. If the message received contains a body it is printed to stdout.
 
-```
+```bash
 w4m wait --port-number 8080 --message "ready to proceed"
 ```
 
@@ -79,7 +79,7 @@ w4m wait --port-number 8080 --message "ready to proceed"
 
 On an other machine (this example we used a Windows machine), connect tcip/ip socket to the ip:port for the server and send several messages. Send will resend message until an acknowledgement is received. If no acknowledgement is received after max attempts a MaxAttemptsError is thrown.
 
-```
+```bash
 w4m send --ip-address 192.168.1.199 --port-number 8080 --message "a message"
 w4m send --ip-address 192.168.1.199 --port-number 8080 --message "another message"
 w4m send --ip-address 192.168.1.199 --port-number 8080 --message "ready to proceed:message body"
@@ -90,14 +90,13 @@ w4m send --ip-address 192.168.1.199 --port-number 8080 --message "ready to proce
 ## Development
 
 Build the Docker image:
-```
+```bash
 docker image build \
--t \
-w4m:latest .
+-t w4m:latest .
 ```
 
 Run the Docker container:
-```
+```bash
 docker container run \
 --rm \
 -it \
