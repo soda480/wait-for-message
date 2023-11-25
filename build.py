@@ -16,7 +16,7 @@ name = 'wait-for-message'
 authors = [Author('Emilio Reyes', 'soda480@gmail.com')]
 summary = 'A simple client server utility that blocks until a message is received on a TCP/IP socket connection'
 url = 'https://github.com/soda480/wait-for-message'
-version = '0.1.7'
+version = '0.1.8'
 default_task = [
     'clean',
     'analyze',
@@ -46,12 +46,14 @@ def set_properties(project):
     project.set_property('distutils_upload_skip_existing', True)
     project.set_property('distutils_classifiers', [
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.10'])
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12'])
     project.set_property('radon_break_build_average_complexity_threshold', 6)
     project.set_property('radon_break_build_complexity_threshold', 10)
     project.set_property('bandit_break_build', True)
     project.set_property('bandit_skip_ids', 'B104')
-    project.set_property('anybadge_exclude', 'complexity, coverage')
+    project.set_property('anybadge_exclude', 'coverage')
+    project.set_property('anybadge_complexity_use_average', True)
