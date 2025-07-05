@@ -14,9 +14,9 @@ jobs:
       matrix:
         version: ['3.8', '3.9', '3.10', '3.11', '3.12']
     name: Build Python Docker images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: build w4m ${{ matrix.version }} image
         run:
           docker image build --build-arg PYTHON_VERSION=${{ matrix.version }} -t w4m:${{ matrix.version }} .
@@ -27,7 +27,7 @@ jobs:
           docker save --output images/w4m-${{ matrix.version }}.tar w4m:${{ matrix.version }}
       - name: upload w4m ${{ matrix.version }} image artifact
         if: ${{ matrix.version == '3.9' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: image
           path: images/w4m-${{ matrix.version }}.tar
